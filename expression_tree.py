@@ -58,7 +58,8 @@ class ExpressTree(object):
                     mark_negative = False
                 res.append(Node(item_name, start_pos, neg_mark=neg_mark))
             elif inp_str[pos] == '-':
-                if len(res) == 0 or res[-1].name in ['+', '-', '*', '/', '(', ',']:
+                if len(res) == 0 or res[-1].name\
+                        in ['+', '-', '*', '/', '(', ',']:
                     if pos + 1 < lng and \
                             (inp_str[pos + 1].isalpha()
                              or inp_str[pos + 1].isdigit()):
@@ -126,7 +127,8 @@ class ExpressTree(object):
                     stack_node.append(top_op)
                     stack_op.pop()
                 if len(stack_op) == 0:
-                    logging.error(' , in the wrong place {0}'.format(token.pos))
+                    logging.error(' , in the'
+                                  ' wrong place {0}'.format(token.pos))
                     return
             elif token.name == ')':
                 while len(stack_op) > 0 and stack_op[-1].name != '(':
@@ -144,7 +146,8 @@ class ExpressTree(object):
                     stack_node.append(top_op)
                     stack_op.pop()
                 if len(stack_op) == 0:
-                    logging.error(' ) in the wrong place {0}'.format(token.pos))
+                    logging.error(' ) in the wrong'
+                                  ' place {0}'.format(token.pos))
                     return
                 stack_op.pop()
             else:
