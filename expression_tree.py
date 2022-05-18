@@ -1,5 +1,6 @@
 import logging
 from graphviz import Digraph
+# type: ignore
 
 
 class ExpressTree(object):
