@@ -1,6 +1,6 @@
 name: Python sanity check and tests
 
-on: [push]
+on: [ push ]
 
 jobs:
 
@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v3
+
+      - name: Install graphviz
+        run: sudo apt install graphviz
 
       - name: Install dependency
         run: pip install -r requirements.txt
@@ -40,6 +43,6 @@ jobs:
     name: Lint markdown
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Lint markdown files
-      uses: actionshub/markdownlint@main
+      - uses: actions/checkout@v2
+      - name: Lint markdown files
+        uses: actionshub/markdownlint@main
