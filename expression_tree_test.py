@@ -1,5 +1,5 @@
 import unittest
-from math import *
+from math import sin
 from hypothesis import given
 
 import hypothesis.strategies as st
