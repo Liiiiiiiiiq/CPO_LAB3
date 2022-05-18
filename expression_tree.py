@@ -113,7 +113,6 @@ class ExpressTree(object):
             elif token.name == ',':
                 while len(stack_op) > 0 and stack_op[-1].name != '(':
                     top_op = stack_op[-1]
-                    print('C', top_op.name)
                     if len(stack_node) < top_op.arg_num:
                         logging.error(
                             ' Insufficient number of parameters'
