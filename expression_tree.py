@@ -36,15 +36,21 @@ class ExpressTree(object):
                 if mark_negative:
                     neg_mark = True
                     mark_negative = False
-                res.append(Node(item_name, start_pos, neg_mark=neg_mark, function=fun))
+                res.append(Node(item_name,
+                                start_pos,
+                                neg_mark=neg_mark,
+                                function=fun))
             elif inp_str[pos].isdigit():
                 start_pos = pos
                 item_name = inp_str[pos]
-                while pos + 1 < lng and (inp_str[pos + 1].isdigit() or inp_str[pos + 1] == '.'):
+                while pos + 1 < lng and \
+                        (inp_str[pos + 1].isdigit() or
+                         inp_str[pos + 1] == '.'):
                     item_name += inp_str[pos + 1]
                     pos += 1
                 if len(item_name.split('.')) > 2:
-                    logging.error(' Too many . symbols in numbers at position {0}'.format(start_pos))
+                    logging.error(' Too many . symbols in '
+                                  'numbers at position {0}'.format(start_pos))
                     return []
                 neg_mark = False
                 if mark_negative:
@@ -53,10 +59,13 @@ class ExpressTree(object):
                 res.append(Node(item_name, start_pos, neg_mark=neg_mark))
             elif inp_str[pos] == '-':
                 if len(res) == 0 or res[-1].name in ['+', '-', '*', '/', '(', ',']:
-                    if pos + 1 < lng and (inp_str[pos + 1].isalpha() or inp_str[pos + 1].isdigit()):
+                    if pos + 1 < lng and \
+                            (inp_str[pos + 1].isalpha()
+                             or inp_str[pos + 1].isdigit()):
                         mark_negative = True
                     else:
-                        logging.error(' Negative sign does not match at position{0}'.format(pos))
+                        logging.error(' Negative sign does'
+                                      ' not match at position{0}'.format(pos))
                         return []
                 else:
                     fun = ops[inp_str[pos]] if inp_str[pos] in ops else None
@@ -65,7 +74,8 @@ class ExpressTree(object):
                 fun = ops[inp_str[pos]] if inp_str[pos] in ops else None
                 res.append(Node(inp_str[pos], pos, function=fun))
             else:
-                logging.error(' Unrecognized character {0} at position {1} '.format(inp_str[pos], pos))
+                logging.error(' Unrecognized character {0} at '
+                              'position {1} '.format(inp_str[pos], pos))
                 return []
             pos += 1
         return res
@@ -88,7 +98,8 @@ class ExpressTree(object):
                     top_op = stack_op[-1]
                     if len(stack_node) < top_op.arg_num:
                         logging.error(
-                            ' Insufficient number of parameters for function {0} at position {1}'.format(
+                            ' Insufficient number of parameters for'
+                            ' function {0} at position {1}'.format(
                                 top_op, top_op.pos))
                         return
                     for i in range(top_op.arg_num):
@@ -104,7 +115,8 @@ class ExpressTree(object):
                     print('C', top_op.name)
                     if len(stack_node) < top_op.arg_num:
                         logging.error(
-                            ' Insufficient number of parameters for function {0} at position {1}'.format(
+                            ' Insufficient number of parameters'
+                            ' for function {0} at position {1}'.format(
                                 top_op, top_op.pos))
                         return
                     for i in range(top_op.arg_num):
@@ -121,7 +133,8 @@ class ExpressTree(object):
                     top_op = stack_op[-1]
                     if len(stack_node) < top_op.arg_num:
                         logging.error(
-                            ' Insufficient number of parameters for function {0} at position {1}'.format(
+                            ' Insufficient number of parameters for'
+                            ' function {0} at position {1}'.format(
                                 top_op, top_op.pos))
                         return
                     for i in range(top_op.arg_num):
@@ -142,7 +155,8 @@ class ExpressTree(object):
             top_op = stack_op[-1]
             if len(stack_node) < top_op.arg_num:
                 logging.error(
-                    ' Insufficient number of parameters for function {0} at position {1}'.format(
+                    ' Insufficient number of parameters for'
+                    ' function {0} at position {1}'.format(
                         top_op, top_op.pos))
                 return
             for i in range(top_op.arg_num):
