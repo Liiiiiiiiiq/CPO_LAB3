@@ -1,10 +1,10 @@
 import unittest
 from math import sin
-from hypothesis import given
+# from hypothesis import given
 
-import hypothesis.strategies as st
+# import hypothesis.strategies as st
 
-from expression_tree import *
+from expression_tree import ExpressTree
 
 
 class TestExpressTree(unittest.TestCase):
