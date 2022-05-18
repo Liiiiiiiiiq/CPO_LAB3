@@ -1,4 +1,5 @@
 import logging
+
 from graphviz import Digraph  # type: ignore
 
 
