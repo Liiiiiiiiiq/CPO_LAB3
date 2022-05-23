@@ -2,7 +2,57 @@ import logging
 from graphviz import Digraph  # type: ignore
 
 
+def arg_type(argType):
+    def trace(func):
+        def traced(*args, **kwargs):
+            length = len(args)
+            for k, v in argType.items():
+                if k < length:
+                    p = args[k]
+                    if not isinstance(p, v):
+                        logging.error("The arg %s should be %s,but it's %s now!"
+                                      % (str(p), type(v()), type(p)))
+                else:
+                    if isinstance(kwargs, v):
+                        pass
+            try:
+                res = func(*args, **kwargs)
+            finally:
+                logging.info("{} FINISH".format(func.__name__))
+            return res
+        return traced
+    return trace
+
+
+class Node:
+    def __init__(self, name, pos, neg_mark=False, function=None):
+        self.sign = -1 if neg_mark else 1
+        self.pos = pos
+        self.label = name
+        if neg_mark and function is None:
+            self.label = '-' + self.label
+        self.name = name
+        self.function = function
+        self.arg_num = function.__code__.co_argcount if function else None
+        self.value = None
+        try:
+            self.value = float(self.name)
+        except ValueError:
+            pass
+        self.next = []
+
+    def get_priority(self):
+        if self.name in ['+', '-']:
+            return 1
+        elif self.name in ['*', '/']:
+            return 2
+        else:
+            return 3
+
+
 class ExpressTree(object):
+
+    @arg_type({1: str, 2: dict})
     def __init__(self, input_string, **user_fun):
         self.__operators = {'+': lambda a, b: a + b, '-': lambda a, b: a - b,
                             '*': lambda a, b: a * b, '/': lambda a, b: a / b}
@@ -172,6 +222,7 @@ class ExpressTree(object):
         if len(stack_node) == 1:
             self.__root = stack_node[0]
 
+    @arg_type({1: dict})
     def __call__(self, **kwargs):
         for v in kwargs.values():
             if type(v) is not float and type(v) is not int:
@@ -183,6 +234,7 @@ class ExpressTree(object):
             return None
         return self.__root.value * self.__root.sign
 
+    @arg_type({1: Node, 2: dict})
     def __update_value(self, node, arg):
         if node.function is None:
             if node.value is not None:
@@ -220,28 +272,3 @@ class ExpressTree(object):
                 queue.append([k, idx])
         g.view()
 
-
-class Node:
-    def __init__(self, name, pos, neg_mark=False, function=None):
-        self.sign = -1 if neg_mark else 1
-        self.pos = pos
-        self.label = name
-        if neg_mark and function is None:
-            self.label = '-' + self.label
-        self.name = name
-        self.function = function
-        self.arg_num = len(function.__code__.co_varnames) if function else None
-        self.value = None
-        try:
-            self.value = float(self.name)
-        except ValueError:
-            pass
-        self.next = []
-
-    def get_priority(self):
-        if self.name in ['+', '-']:
-            return 1
-        elif self.name in ['*', '/']:
-            return 2
-        else:
-            return 3
