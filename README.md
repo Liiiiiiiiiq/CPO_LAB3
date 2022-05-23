@@ -27,8 +27,9 @@ parse mathematical expressions by expression trees.
   - `__update_value`: Reducing the expression tree in a result (from leaves to root).
   - `__call__`: Input constants, reduce the expression.
   - `visualization`: Visualization the expression tree.
-  
+
 ## Contribution
+
 
 - Li Liquan (212320016@hdu.edu.cn)
   - GitHub repository created
