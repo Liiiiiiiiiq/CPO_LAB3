@@ -30,7 +30,6 @@ parse mathematical expressions by expression trees.
 
 ## Contribution
 
-
 - Li Liquan (212320016@hdu.edu.cn)
   - GitHub repository created
   - implement classes `Node`, `ExpressTree`
