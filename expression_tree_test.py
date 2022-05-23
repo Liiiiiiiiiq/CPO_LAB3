@@ -27,12 +27,14 @@ class TestExpressTree(unittest.TestCase):
         self.assertEqual(res2, tree2(a=123456, b=654321, c=34, d=2, e=6))
 
         s3 = 'oor(aand(a, b), no(c))'
-        tree3 = ExpressTree(s3, oor=lambda x, y: x or y, aand=lambda x, y: x and y, no=lambda x: not x)
+        tree3 = ExpressTree(s3, oor=lambda x, y: x or y,
+                            aand=lambda x, y: x and y, no=lambda x: not x)
         self.assertEqual(0, tree3(a=1, b=0, c=1))
 
         def integration(a, b):
             # left-hand point
-            f = lambda x: x ** 3 - 4 * x ** 2 + 4 * x + 2
+            def f(x):
+                return x ** 3 - 4 * x ** 2 + 4 * x + 2
             N = 100
             result = 0
             dx = abs(b - a) / N
@@ -44,9 +46,3 @@ class TestExpressTree(unittest.TestCase):
         tree4 = ExpressTree(s4, integration=integration)
         res4 = integration(0.5, 2.5)
         self.assertEqual(res4, tree4(a=0.5, b=2.5))
-
-
-
-
-
-

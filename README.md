@@ -14,20 +14,20 @@ parse mathematical expressions by expression trees.
 
 ## Features
 
-- class `Node`: 
-  - `__init__`: Instantiate a node of expression tree (non-leaf - function; leaf - constant).
+- class `Node`:
+  - `__init__`: Instantiate a node of expression tree
+ (non-leaf - function; leaf - constant).
   - `get_priority`: Get the priority of function.
 
-- class `ExpressTree`: 
+- class `ExpressTree`:
   - `__init__`: Create an expression tree.
   - `__preprocess`: Preprocessing the input string expression.
-  - `__build_express_tree`: Building an expression tree 
+  - `__build_express_tree`: Building an expression tree
    according to the preprocessed string expression.
   - `__update_value`: Reducing the expression tree in a result (from leaves to root).
   - `__call__`: Input constants, reduce the expression.
   - `visualization`: Visualization the expression tree.
   
-
 ## Contribution
 
 - Li Liquan (212320016@hdu.edu.cn)
@@ -49,6 +49,6 @@ parse mathematical expressions by expression trees.
 
 ## Design notes
 
-- Input type: string. 
+- Input type: string.
 - In expression tree, functions are parsed as non-leaf nodes and constants as leave.
 - Users can customize functions as non-leaf nodes of the expression tree.

@@ -11,7 +11,8 @@ def arg_type(argType):
                 if k < length:
                     p = args[k]
                     if not isinstance(p, v):
-                        logging.error("The arg %s should be %s,but it's %s now!"
+                        logging.error("The arg %s should be %s,"
+                                      "but it's %s now!"
                                       % (str(p), type(v()), type(p)))
                 else:
                     if isinstance(kwargs, v):
@@ -271,4 +272,3 @@ class ExpressTree(object):
                 g.edge(str(i), str(idx))
                 queue.append([k, idx])
         g.view()
-
